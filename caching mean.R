@@ -12,3 +12,19 @@ makeCacheMatrix <- function(x = matrix(sample(1:100,9),3,3)) {
        setsolve = setsolve,
        getsolve = getsolve)
 }
+
+
+
+
+##caching the inverse of a matrix
+cacheSolve <- function(x, ...) {
+  s <- x$getsolve()
+  if(!is.null(s)) {
+    message("getting inversed matrix")
+    return(s)
+  }
+  data <- x$get()
+  s <- solve(data, ...)
+  x$setsolve(s)
+  s
+}
